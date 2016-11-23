@@ -1,0 +1,23 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+E:\51\工程\减速电机\dianji.uvproj
+Project File Date:  12/24/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling dianji.c...
+DIANJI.C(1): warning C500: LICENSE ERROR (R208: RENEW LICENSE ID CODE (LIC))
+linking...
+Program Size: data=28.0 xdata=0 code=745
+creating hex file from "dianji"...
+"dianji" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling dianji.c...
+DIANJI.C(1): warning C500: LICENSE ERROR (R208: RENEW LICENSE ID CODE (LIC))
+linking...
+Program Size: data=28.0 xdata=0 code=745
+creating hex file from "dianji"...
+"dianji" - 0 Error(s), 1 Warning(s).

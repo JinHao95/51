@@ -1,0 +1,333 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        12/25/2015  14:30:54  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\KEIL 4 51\C51\BIN\BL51.EXE dianji.obj TO dianji RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  dianji.obj (DIANJI)
+  D:\KEIL 4 51\C51\LIB\C51S.LIB (?C_STARTUP)
+  D:\KEIL 4 51\C51\LIB\C51S.LIB (?C?UIDIV)
+  D:\KEIL 4 51\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  dianji (DIANJI)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0012H     UNIT         ?DT?DIANJI
+            DATA    001AH     0001H     UNIT         _DATA_GROUP_
+            IDATA   001BH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0003H     ABSOLUTE     
+                    0006H     0005H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+                    000EH     000DH                  *** GAP ***
+            CODE    001BH     0003H     ABSOLUTE     
+                    001EH     07E2H                  *** GAP ***
+            CODE    0800H     008CH     UNIT         ?C_C51STARTUP
+            CODE    088CH     0089H     UNIT         ?PR?SCANF_KEY?DIANJI
+            CODE    0915H     0065H     UNIT         ?PR?DISPLAY?DIANJI
+            CODE    097AH     0055H     UNIT         ?C?LIB_CODE
+            CODE    09CFH     0035H     UNIT         ?PR?MAIN?DIANJI
+            CODE    0A04H     002CH     UNIT         ?PR?INT1?DIANJI
+            CODE    0A30H     0027H     UNIT         ?PR?_SETSPEED?DIANJI
+            CODE    0A57H     0021H     UNIT         ?PR?TIMER1INTERRUPT?DIANJI
+            CODE    0A78H     0020H     UNIT         ?PR?INIT?DIANJI
+            CODE    0A98H     0018H     UNIT         ?C_INITSEG
+            CODE    0AB0H     0013H     UNIT         ?PR?IINT0INTERRUPT?DIANJI
+            CODE    0AC3H     000EH     UNIT         ?PR?_DELAY?DIANJI
+            CODE    0AD1H     000CH     UNIT         ?CO?DIANJI
+
+
+
+OVERLAY MAP OF MODULE:   dianji (DIANJI)
+
+
+SEGMENT                              DATA_GROUP 
+  +--> CALLED SEGMENT              START    LENGTH
+--------------------------------------------------
+?C_C51STARTUP                      -----    -----
+  +--> ?PR?MAIN?DIANJI
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/25/2015  14:30:54  PAGE 2
+
+
+  +--> ?C_INITSEG
+
+?PR?MAIN?DIANJI                    -----    -----
+  +--> ?PR?INIT?DIANJI
+  +--> ?PR?_SETSPEED?DIANJI
+  +--> ?PR?SCANF_KEY?DIANJI
+  +--> ?PR?DISPLAY?DIANJI
+
+?PR?SCANF_KEY?DIANJI               001AH    0001H
+  +--> ?PR?_DELAY?DIANJI
+
+?PR?DISPLAY?DIANJI                 -----    -----
+  +--> ?CO?DIANJI
+  +--> ?PR?_DELAY?DIANJI
+
+
+
+SYMBOL TABLE OF MODULE:  dianji (DIANJI)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        DIANJI
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  B:00A0H.6       PUBLIC        in1
+  C:0A57H         PUBLIC        Timer1Interrupt
+  B:00A0H.7       PUBLIC        in2
+  C:0AD1H         PUBLIC        table
+  D:0009H         PUBLIC        number
+  D:00A8H         PUBLIC        IE
+  C:0AC3H         PUBLIC        _delay
+  B:00A0H.0       PUBLIC        P2_0
+  B:00A0H.1       PUBLIC        P2_1
+  B:00A0H.2       PUBLIC        P2_2
+  B:00A0H.3       PUBLIC        P2_3
+  D:00B8H         PUBLIC        IP
+  B:00B0H.6       PUBLIC        BEEP
+  D:000AH         PUBLIC        pwm_h
+  C:0A30H         PUBLIC        _SetSpeed
+  D:000CH         PUBLIC        pwm_l
+  C:09CFH         PUBLIC        main
+  D:000EH         PUBLIC        count
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:0A78H         PUBLIC        init
+  C:088CH         PUBLIC        scanf_key
+  D:000FH         PUBLIC        sudu
+  B:00A8H.1       PUBLIC        ET0
+  B:00A8H.3       PUBLIC        ET1
+  D:008CH         PUBLIC        TH0
+  B:00A8H.0       PUBLIC        EX0
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/25/2015  14:30:54  PAGE 3
+
+
+  B:0088H.0       PUBLIC        IT0
+  D:008DH         PUBLIC        TH1
+  B:00B0H.7       PUBLIC        PWM_OUT
+  D:008AH         PUBLIC        TL0
+  D:0011H         PUBLIC        num
+  D:008BH         PUBLIC        TL1
+  B:0088H.4       PUBLIC        TR0
+  B:0088H.6       PUBLIC        TR1
+  C:0AB0H         PUBLIC        iINT0Interrupt
+  D:0012H         PUBLIC        printfsudu
+  B:00B0H.0       PUBLIC        Bxiang
+  B:0090H.0       PUBLIC        led1
+  D:00C8H         PUBLIC        T2CON
+  C:0915H         PUBLIC        display
+  D:00D0H         PUBLIC        PSW
+  B:00B0H.5       PUBLIC        key1
+  B:00B0H.4       PUBLIC        key2
+  C:0A04H         PUBLIC        int1
+  B:00B0H.3       PUBLIC        key3
+  -------         PROC          _DELAY
+  D:0007H         SYMBOL        i
+  -------         DO            
+  D:0007H         SYMBOL        j
+  D:0006H         SYMBOL        k
+  -------         ENDDO         
+  C:0AC3H         LINE#         10
+  C:0AC3H         LINE#         11
+  C:0AC3H         LINE#         13
+  C:0AC9H         LINE#         14
+  C:0AD0H         LINE#         15
+  -------         ENDPROC       _DELAY
+  -------         PROC          DISPLAY
+  C:0915H         LINE#         17
+  C:0915H         LINE#         18
+  C:0915H         LINE#         19
+  C:0925H         LINE#         20
+  C:0927H         LINE#         21
+  C:092CH         LINE#         22
+  C:092EH         LINE#         24
+  C:093EH         LINE#         25
+  C:0940H         LINE#         26
+  C:0945H         LINE#         27
+  C:0947H         LINE#         29
+  C:0957H         LINE#         30
+  C:0959H         LINE#         31
+  C:095EH         LINE#         32
+  C:0960H         LINE#         34
+  C:0970H         LINE#         35
+  C:0972H         LINE#         36
+  C:0977H         LINE#         37
+  C:0979H         LINE#         39
+  -------         ENDPROC       DISPLAY
+  -------         PROC          _SETSPEED
+  D:0006H         SYMBOL        num
+  C:0A30H         LINE#         40
+  C:0A30H         LINE#         41
+  C:0A30H         LINE#         42
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/25/2015  14:30:54  PAGE 4
+
+
+  C:0A39H         LINE#         43
+  C:0A39H         LINE#         44
+  C:0A44H         LINE#         45
+  C:0A56H         LINE#         46
+  C:0A56H         LINE#         48
+  -------         ENDPROC       _SETSPEED
+  -------         PROC          INIT
+  C:0A78H         LINE#         49
+  C:0A78H         LINE#         50
+  C:0A78H         LINE#         51
+  C:0A7AH         LINE#         52
+  C:0A7CH         LINE#         54
+  C:0A7FH         LINE#         56
+  C:0A82H         LINE#         57
+  C:0A84H         LINE#         58
+  C:0A86H         LINE#         59
+  C:0A88H         LINE#         60
+  C:0A8AH         LINE#         62
+  C:0A8DH         LINE#         63
+  C:0A8FH         LINE#         64
+  C:0A91H         LINE#         65
+  C:0A93H         LINE#         67
+  C:0A95H         LINE#         68
+  C:0A97H         LINE#         70
+  -------         ENDPROC       INIT
+  -------         PROC          SCANF_KEY
+  -------         DO            
+  D:001AH         SYMBOL        i
+  -------         ENDDO         
+  C:088CH         LINE#         71
+  C:088CH         LINE#         72
+  C:088CH         LINE#         74
+  C:088FH         LINE#         75
+  C:0892H         LINE#         76
+  C:0892H         LINE#         77
+  C:0897H         LINE#         78
+  C:089AH         LINE#         79
+  C:089AH         LINE#         80
+  C:089CH         LINE#         81
+  C:089FH         LINE#         82
+  C:08A1H         LINE#         83
+  C:08ACH         LINE#         84
+  C:08B4H         LINE#         86
+  C:08BFH         LINE#         87
+  C:08BFH         LINE#         88
+  C:08BFH         LINE#         89
+  C:08C2H         LINE#         90
+  C:08C2H         LINE#         91
+  C:08C7H         LINE#         92
+  C:08CAH         LINE#         93
+  C:08CAH         LINE#         94
+  C:08CCH         LINE#         95
+  C:08CFH         LINE#         96
+  C:08D1H         LINE#         97
+  C:08DCH         LINE#         98
+  C:08E3H         LINE#         100
+  C:08EFH         LINE#         101
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/25/2015  14:30:54  PAGE 5
+
+
+  C:08EFH         LINE#         102
+  C:08EFH         LINE#         103
+  C:08F2H         LINE#         104
+  C:08F2H         LINE#         105
+  C:08F7H         LINE#         106
+  C:08FAH         LINE#         107
+  C:08FAH         LINE#         108
+  C:08FCH         LINE#         109
+  C:08FFH         LINE#         110
+  C:0901H         LINE#         112
+  C:0903H         LINE#         113
+  C:0905H         LINE#         114
+  C:0905H         LINE#         115
+  C:0905H         LINE#         128
+  C:0914H         LINE#         130
+  -------         ENDPROC       SCANF_KEY
+  -------         PROC          MAIN
+  C:09CFH         LINE#         135
+  C:09CFH         LINE#         136
+  C:09CFH         LINE#         138
+  C:09D2H         LINE#         140
+  C:09D9H         LINE#         141
+  C:09DBH         LINE#         143
+  C:09DDH         LINE#         144
+  C:09DDH         LINE#         145
+  C:09DDH         LINE#         146
+  C:09E8H         LINE#         147
+  C:09F5H         LINE#         149
+  C:09F8H         LINE#         151
+  C:09FFH         LINE#         153
+  C:0A02H         LINE#         154
+  -------         ENDPROC       MAIN
+  -------         PROC          IINT0INTERRUPT
+  C:0AB0H         LINE#         158
+  C:0AB0H         LINE#         160
+  C:0AB2H         LINE#         161
+  C:0AB5H         LINE#         162
+  C:0ABCH         LINE#         165
+  C:0AC2H         LINE#         167
+  -------         ENDPROC       IINT0INTERRUPT
+  -------         PROC          INT1
+  -------         DO            
+  D:0008H         SYMBOL        stepflag
+  -------         ENDDO         
+  C:0A04H         LINE#         169
+  C:0A08H         LINE#         173
+  C:0A0AH         LINE#         175
+  C:0A0FH         LINE#         176
+  C:0A0FH         LINE#         177
+  C:0A12H         LINE#         178
+  C:0A16H         LINE#         179
+  C:0A18H         LINE#         180
+  C:0A1BH         LINE#         181
+  C:0A1DH         LINE#         183
+  C:0A1DH         LINE#         184
+  C:0A20H         LINE#         185
+  C:0A24H         LINE#         186
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/25/2015  14:30:54  PAGE 6
+
+
+  C:0A26H         LINE#         187
+  C:0A29H         LINE#         188
+  C:0A29H         LINE#         197
+  C:0A2BH         LINE#         198
+  -------         ENDPROC       INT1
+  -------         PROC          TIMER1INTERRUPT
+  C:0A57H         LINE#         200
+  C:0A5BH         LINE#         202
+  C:0A5EH         LINE#         203
+  C:0A61H         LINE#         204
+  C:0A68H         LINE#         205
+  C:0A6BH         LINE#         206
+  C:0A6EH         LINE#         207
+  C:0A71H         LINE#         208
+  C:0A73H         LINE#         212
+  C:0A73H         LINE#         214
+  -------         ENDPROC       TIMER1INTERRUPT
+  -------         ENDMOD        DIANJI
+
+  -------         MODULE        ?C?UIDIV
+  C:097AH         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0204H BYTE (25%) *
+******************************************************************************
+
+Program Size: data=28.0 xdata=0 code=745
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

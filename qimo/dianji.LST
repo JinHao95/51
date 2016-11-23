@@ -1,0 +1,246 @@
+C51 COMPILER V9.00   DIANJI                                                                12/25/2015 14:30:54 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE DIANJI
+OBJECT MODULE PLACED IN dianji.OBJ
+COMPILER INVOKED BY: D:\keil 4 51\C51\BIN\C51.EXE dianji.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF DIANJI.C: LICENSE ERROR (R208: RENEW LICENSE ID CODE (LIC))
+
+   1          /*
+   2          ±àÒë»·¾³ keil4
+   3          ÊµÑéÆ½Ì¨ QX-mini51
+   4          2015/12/24-22:30²âÊÔÍ¨¹ý
+   5          »¶Ó­×ªÔØ£¬µ«Çë±£ÐÞ´Ë¶ÎÎÄ×Ö
+   6          51mcuÔËËãËÙ¶È/×ÊÔ´ÓÐÏÞ£¬¼ÓÈëLCDÏÔÊ¾Ê§°Ü¡£
+   7          Copyrighnt@ 2015 jiangjinhao
+   8                                                                  */
+   9          //»¶Ó­×ªÔØ£¬µ«Çë±£Áô´Ë¶ÎÎÄ×Ö
+  10          #include <reg52.h>
+  11          #define uchar unsigned char 
+  12          #define uint unsigned int
+  13          //#include <LCD1602.h>
+  14          #include <shumaguan.h>
+  15          sbit key1 = P3 ^ 5;             //°´¼ü1 pwm+
+  16          sbit key2 = P3 ^ 4;             //°´¼ü2 pwm-
+  17          sbit key3 = P3 ^ 3;             //°´¼ü3 ·­×ª
+  18          sbit key4 = P3 ^ 2;             //°´¼ü4 
+  19          
+  20          sbit led1 = P1 ^0;              //led
+  21          sbit led2 = P1 ^1;
+  22          sbit led3 = P1 ^2;
+  23          sbit led4 = P1 ^3;
+  24          
+  25          sbit Bxiang = P3 ^0;    //BÏòÊäÈë
+  26          
+  27          uchar count=0,number=0,num=0;
+  28          
+  29          sbit in1 = P2 ^6; // IN1
+  30          sbit in2 = P2 ^7; // IN2   
+  31          
+  32          sbit PWM_OUT = P3 ^7;  // pwmÊä³ö
+  33          
+  34          sbit BEEP =P3 ^ 6; //·äÃùÆ÷
+  35          
+  36          uint pwm_h; 
+  37          uint pwm_l;
+  38          uint sudu=500;
+  39          
+  40          void SetSpeed(uint num) //
+  41          {    
+  42   1              if(num<1000)             //pwmÖÜÆÚ 1ms  ²úÉú1K Ò»Â·pwm
+  43   1              {    
+  44   2                      pwm_l=65535-num;      //0.num £¨ms£©
+  45   2                      pwm_h=65536-(1001-num);  //£¨1-0.num£©ms
+  46   2              }  
+  47   1              else  return ;
+  48   1      }
+  49          void init()
+  50          {
+  51   1              in1=1;
+  52   1              in2=0;  
+  53   1                                                                                                                                          
+  54   1          TMOD = 0x11;   //0001         0001
+C51 COMPILER V9.00   DIANJI                                                                12/25/2015 14:30:54 PAGE 2   
+
+  55   1      
+  56   1          TH0 = 0x00;
+  57   1          TL0 = 0x00;
+  58   1          EA = 1;
+  59   1          ET0 = 1;//¶¨Ê±¼ÆÊýÆ÷0Òç³öÖÐ¶ÏÔÊÐí¿ØÖÆÎ»
+  60   1          TR0 = 1;
+  61   1      
+  62   1              TH1 = 0x4C;//50ms
+  63   1          TL1 = 0x00;
+  64   1          ET1 = 1; //¶¨Ê±¼ÆÊýÆ÷1Òç³öÖÐ¶ÏÔÊÐí¿ØÖÆÎ»
+  65   1          TR1 = 1;
+  66   1      
+  67   1              EX0 = 1;//Íâ²¿ÖÐ¶Ï1
+  68   1              IT0 = 1;   //±ßÔµ´¥·¢·½Ê½
+  69   1              
+  70   1      }
+  71          void scanf_key()
+  72          {
+  73   1      
+  74   1              uchar i=1;
+  75   1              if(key1==0)
+  76   1                      {
+  77   2                              delay(5);         //°´¼üÏû¶¶ ¼ÓËÙ
+  78   2                              if(key1==0)       
+  79   2                              {
+  80   3                                      BEEP=~BEEP;
+  81   3                                      while(!key1);
+  82   3                                      BEEP=~BEEP;
+  83   3                                      if(sudu>949)     
+  84   3                                              sudu=960;
+  85   3                                      else
+  86   3                                       sudu+=100;
+  87   3                              }
+  88   2                      }
+  89   1                      if(key2==0)                              //°´¼üÏû¶¶ ¼õËÙ
+  90   1                      {
+  91   2                              delay(5);       
+  92   2                              if(key2==0)       
+  93   2                              {
+  94   3                                      BEEP=~BEEP;
+  95   3                                      while(!key2);
+  96   3                                      BEEP=~BEEP;
+  97   3                                      if(sudu<50)
+  98   3                                              sudu=0;
+  99   3                                      else
+ 100   3                                              sudu-=100;
+ 101   3                              }
+ 102   2                      }
+ 103   1                      if(key3==0)                      //°´¼üÏû¶¶  ·´×ª
+ 104   1                      {
+ 105   2                              delay(5);        
+ 106   2                              if(key3==0)      
+ 107   2                              {
+ 108   3                                      BEEP=~BEEP;
+ 109   3                                      while(!key3);
+ 110   3                                      BEEP=~BEEP;
+ 111   3                                      //sudu+=50;
+ 112   3                                      in1=~in1;
+ 113   3                          in2=~in2;
+ 114   3                              }
+ 115   2                      }
+ 116   1              /*      if(key4==0)
+C51 COMPILER V9.00   DIANJI                                                                12/25/2015 14:30:54 PAGE 3   
+
+ 117   1                      {
+ 118   1                              delay(5);        
+ 119   1                              if(key4==0)      
+ 120   1                              {
+ 121   1                                      while(!key4);
+ 122   1                                      //sudu-=50;
+ 123   1                              //      led4=~led4;
+ 124   1                              }
+ 125   1                      } */
+ 126   1      //      dis2[13]=sudu/100;
+ 127   1      //      dis2[14]=sudu%100/10;
+ 128   1              printfsudu[0]=sudu/100;  //pwm Õ¼¿Õ±È
+ 129   1                                                              //Õ¼¿Õ±ÈÊÇÖ¸Âö³åÐÅºÅµÄÍ¨µçÊ±¼äÓëÍ¨µçÖÜÆÚÖ®±È¡£ÔÚÒ»´®ÀíÏëµÄÂö³åÖÜÆÚÐòÁÐÖÐ£¨Èç·½²¨£©£¬ÕýÂö³åµÄ³ÖÐøÊ±¼
+             -äÓëÂö³å×ÜÖÜÆÚµÄ±ÈÖµ¡£                                 
+ 130   1      }  /*
+ 131          void toodisplay()
+ 132          {
+ 133                  display();
+ 134          }  */
+ 135          void main()
+ 136          {
+ 137   1              //delay(500);
+ 138   1              init();                 //³õÊ¼»¯
+ 139   1              //lcd_init ();
+ 140   1              SetSpeed(sudu); 
+ 141   1              led1=0;           
+ 142   1         // display();
+ 143   1              BEEP=1;
+ 144   1              while(1)
+ 145   1              {
+ 146   2                      printfsudu[2]=(number/10);      //ËÙ¶ÈÊ®Î»D 
+ 147   2                      printfsudu[3]=(number%10);      //ËÙ¶È¸÷Î»D
+ 148   2              //      printfsudu[3]=(number*10%10); 
+ 149   2                      scanf_key();                            //°´¼üÉ¨Ãè
+ 150   2              //      delay(100);
+ 151   2                      SetSpeed(sudu);                         //µ÷½ÚÕ¼¿Õ±È
+ 152   2              //      display_lcd1026();
+ 153   2                      display();                                //ÊýÂë¹ÜÏÔÊ¾
+ 154   2              }
+ 155   1      
+ 156   1      }
+ 157             
+ 158          void iINT0Interrupt(void) interrupt 0    //Íâ²¿ÖÐ¶Ï0
+ 159          {
+ 160   1              count++;
+ 161   1              if(Bxiang==0)                      //ÅÐ¶ÏBÏò
+ 162   1                      printfsudu[1]=11;          //  £¨ - £©
+ 163   1              //      dis2[5]='+';
+ 164   1              else 
+ 165   1                  printfsudu[1]=10;     // ' ' 
+ 166   1              //   dis2[5]='-';
+ 167   1      }       
+ 168           
+ 169          void int1() interrupt 1         //¶¨Ê±Æ÷0
+ 170          {
+ 171   1              static char stepflag;
+ 172   1      
+ 173   1              TR0=0;
+ 174   1      //      led1=~led1;
+ 175   1              if(stepflag==1)
+ 176   1              {
+ 177   2                      TL0=pwm_h;       //     pwm_h=65536-(1001-num); £¨1-0.num£©ms
+C51 COMPILER V9.00   DIANJI                                                                12/25/2015 14:30:54 PAGE 4   
+
+ 178   2                      TH0=pwm_h>>8; //¸ºÂö³å³ÖÐøÊ±¼ä  £¨1-0.num£©ms   ÖÜÆÚ1ms
+ 179   2                      PWM_OUT=0;
+ 180   2                      stepflag=0;
+ 181   2              }
+ 182   1              else
+ 183   1              {
+ 184   2                      TL0=pwm_l;         //pwm_l=65535-num; 0.num £¨ms£©
+ 185   2                      TH0=pwm_l>>8;  //ÕýÂö³åµÄ³ÖÐøÊ±¼ä 0.num ms  ÖÜÆÚ1ms
+ 186   2                      PWM_OUT=1;
+ 187   2                      stepflag=1;
+ 188   2              }  
+ 189   1               /* num++;
+ 190   1              if(num==20)
+ 191   1              {       num=0;
+ 192   1                      number=count;
+ 193   1                      count=0;
+ 194   1      
+ 195   1              led1=~led1;
+ 196   1                      }*/     
+ 197   1              TR0=1;
+ 198   1      }
+ 199          
+ 200          void Timer1Interrupt(void) interrupt 3          //¶¨Ê±Æ÷1
+ 201          {
+ 202   1          TH1 = 0x4C;                   //50ms
+ 203   1          TL1 = 0x00;
+ 204   1              if(++num==3)               //50ms*3      
+ 205   1              {       num=0;
+ 206   2                      number=count;      //±£ÐÞÂö³åÏÂ½µÑØ¸öÊý
+ 207   2                      count=0;
+ 208   2                      led1=~led1;                //ledÉÁË¸
+ 209   2              //      dis2[6]=number%1000/100+0x30;
+ 210   2              //      dis2[7]=number%1000%100/10+0x30;
+ 211   2              //      display();
+ 212   2              }
+ 213   1       
+ 214   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    472    ----
+   CONSTANT SIZE    =     12    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     18       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
